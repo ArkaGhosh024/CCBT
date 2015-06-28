@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<div>
+    		<center><h1>Users family details form</a></h1></center>
+	</div>
+</head>
+<body>
+	
+	
+<body bgcolor="RED" >
+<table>
+
+<form action='/fill/family_details/' method='post'>{% csrf_token %}
+{{form.as_p}}
+<input type='submit' value='Submit' />
+</form>
+</table>
+</body>
+</html>

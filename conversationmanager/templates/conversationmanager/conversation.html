@@ -1,0 +1,70 @@
+<!--
+<DOCTYPE!>
+<hmtl>
+	<head>
+		<title>this is a demo conversation</title>
+	</head>
+	<body>
+		<form action="/conversation/" method="post"> {% csrf_token %}
+		<p> {{dialog.dialog_text}} </p>
+		<input type="hidden" name="dialog" value = {{dialog.dialog}} > 
+		{% for choice in option_list %}
+
+			<input type="radio" name="option" value={{choice.optionID}} > {{choice.option_text}} <br>
+		{% endfor %}
+		<input type="submit" value="Submit">
+
+		</form>
+	</body>
+</hmtl>-->
+
+<!DOCTYPE html>
+<html>
+<head>
+	{% load staticfiles %}
+	<title></title>
+	<link rel="stylesheet" href="{% static 'conversationmanager/bootstrap/css/bootstrap.min.css' %}">
+	<link rel="stylesheet" type="text/css" href="{% static 'conversationmanager/animate.css' %}">
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+	<script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.10.3/jquery-ui.min.js"></script>
+	<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+	<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.js"></script>
+	<script src="http://code.jquery.com/ui/1.11.0/jquery-ui.js"></script>
+	<link rel="stylesheet" href="http://code.jquery.com/ui/1.10.4/themes/redmond/jquery-ui.css">
+	<script type="text/javascript" src="{% static 'conversationmanager/bootstrap/js/bootstrap.min.js' %}"></script>
+	<script type="text/javascript" src="{% static 'conversationmanager/jquery.lettering.js' %}"></script>
+	<script type="text/javascript" src="{% static 'conversationmanager/jquery.textillate.js' %}"></script>
+	<script type="text/javascript" src="{% static 'conversationmanager/jquery.cookie.js' %}"></script>
+	<script type="text/javascript" src="{% static 'conversationmanager/conversation_javascript.js' %}"></script>
+	<link rel="stylesheet" type="text/css" href="{% static 'conversationmanager/conversation_style.css' %}">
+</head>
+<body>
+	<form action="/conversation/" method="POST"> {% csrf_token %}
+		<div class="to-be-updated">
+			<div class="container">
+				<div class="row">
+					<div class="col-lg-3 col-md-3 col-sm-2 col-xs-2">
+						<img src="{% static 'conversationmanager/images/dummypatient_avatar/dummypatient_avatar.jpg' %}" class="img-responsive img-thumbnail">
+					</div>
+					<div class="col-lg-9 col-md-9 col-sm-10 col-xs-10">
+						<blockquote class="bg-danger"><p id="dialog-text">{{dialog.dialog_text}}</p></blockquote>
+						<input type="hidden" name="dialog" value = {{dialog.dialog}}>
+					</div>
+				</div>
+
+				<div class="row">
+					<div class="col-lg-3 col-md-3 col-sm-2 col-xs-2">
+						<img src="{% static 'conversationmanager/images/therapist_avatar/therapist_avatar.png' %}" class="img-responsive img-thumbnail hidden" id="user-avatar">
+					</div>
+					{% for choice in option_list %}
+					<div class="col-lg-9 col-md-9 col-sm-10 col-xs-10">
+						<!-- using pre and prefirmatted text does the resizing trick in the button text; set the color according to the color of the button -->
+						<button type="submit" name="option" value={{choice.optionID}} class="btn btn-success choice-text hidden"><pre>{{choice.option_text}}</pre></button>
+					</div>
+					{% endfor %}
+				</div>
+			</div>
+		</div>
+	</form>
+</body>
+</html>
