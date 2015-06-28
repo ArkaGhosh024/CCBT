@@ -2,6 +2,7 @@
 from django.http import HttpResponseRedirect,HttpResponse
 from django.contrib import auth
 from django.core.context_processors import csrf
+from django.views.decorators.csrf import requires_csrf_token
 from django.shortcuts import render,render_to_response , get_object_or_404 , get_list_or_404
 from django.http import HttpResponse, HttpResponseRedirect 
 from django.core.urlresolvers import reverse
@@ -27,7 +28,7 @@ from django.db.models import Q , Max
 #"""
  
  # function for carrying out the conversation with conversation id as only input
- @requires_csrf_token
+@requires_csrf_token
 def carry_out_conversation(request):
     """
     try:

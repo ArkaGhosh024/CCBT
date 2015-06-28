@@ -39,7 +39,7 @@
 	<link rel="stylesheet" type="text/css" href="{% static 'conversationmanager/conversation_style.css' %}">
 </head>
 <body>
-	<form action="/conversation/" method="POST"> {% csrf_token %}
+	<form action="/conversation/" method="POST" id="conversation-form"> {% csrf_token %}
 		<div class="to-be-updated">
 			<div class="container">
 				<div class="row">
@@ -66,5 +66,15 @@
 			</div>
 		</div>
 	</form>
+	<div class="container">
+		<div class="row">
+			<div class="col-lg-1 col-md-1 col-sm-2 col-xs-2">
+				
+			</div>
+			<div class="col-lg-11 col-md-11 col-sm-10 col-xs-10 conversation-history">
+				
+			</div>
+		</div>
+	</div>
 </body>
 </html>
