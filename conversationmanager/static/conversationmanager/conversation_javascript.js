@@ -18,7 +18,7 @@ $(document).ready(function(){
 		//$(".conversation-history-dialog").append("<p class=\"pull-left\" style=\"color:red\">"+$(".bg-danger").text()+"</p>");
 		//$(".conversation-history-option").append("<p class=\"pull-right\" style=\"color:blue\">"+$(this).text()+"</p>");
 		var $form = $("#conversation-form");
-			option = $(this).val();
+			option = parseInt($(this).attr('href'));
 			dialog = $form.find("input[name=\"dialog\"]").val(),
 			url = $form.attr("action"+"/");
 			$.ajax({
@@ -44,7 +44,7 @@ $(document).ready(function(){
 					*/
 					allEffects();
 					//setting focus on button once the history becomes long enough and the user has to scroll to get to the main dialog and option
-					$('.choice-text').focus();
+					$('#user-avatar').focus();
 					
 				},
 				

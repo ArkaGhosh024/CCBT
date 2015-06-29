@@ -57,8 +57,8 @@
 				<div class="row button-row">
 					{% for choice in option_list %}
 					<div class="col-lg-9 col-md-9 col-sm-10 col-xs-10 button-div">
-						<!-- using pre and prefirmatted text does the resizing trick in the button text; set the color according to the color of the button -->
-						<button name="option" value={{choice.optionID}} class="btn btn-success choice-text pull-right hidden"><pre class="pre-text">{{choice.option_text}}</pre></button>
+						<!-- using a hacky method here; I am setting the href of an anchor tag as the value of the option, god help me -->
+						<a name="option" href={{choice.optionID}} class="choice-text pull-right hidden"><p class="pre-text">{{choice.option_text}}</p></a>
 					</div>
 					{% endfor %}
 					<div class="col-lg-3 col-md-3 col-sm-2 col-xs-2">
