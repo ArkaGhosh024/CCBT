@@ -2,7 +2,7 @@
 from django.http import HttpResponseRedirect,HttpResponse
 from django.contrib import auth
 from django.core.context_processors import csrf
-from django.views.decorators.csrf import requires_csrf_token
+from django.views.decorators.csrf import requires_csrf_token, csrf_exempt
 from django.shortcuts import render,render_to_response , get_object_or_404 , get_list_or_404
 from django.http import HttpResponse, HttpResponseRedirect 
 from django.core.urlresolvers import reverse
@@ -24,6 +24,7 @@ from django.contrib.auth.models import User
 from . import models
 from django.contrib.auth.decorators import user_passes_test
 from django.db.models import Q , Max
+from django.template import RequestContext
 # Create your views here.
 #"""
  
@@ -38,7 +39,9 @@ def carry_out_conversation(request):
         return HttpResponseRedirect('/accounts/login/')
     """
     username=request.session['username']
-    user=User.objects.get(username=username)    
+    user=User.objects.get(username=username)
+    if request.method == 'GET':
+        return HttpResponse("get")  
     if not request.POST.get('dialog',None) == None:
         
         if not request.POST.get('option',None) == None:
@@ -69,7 +72,7 @@ def carry_out_conversation(request):
             #models.Userconversation.objects.create(user=user,conversation=fullconversationset[0],option_selected=qset[0].option,conversation_time=datetime.now())
             return render(request,'conversationmanager/conversation.html',{'option_list': option_list,'dialog':fullconversationset[0]})
         except KeyError as e:
-            return HttpResponse(e.args[0])
+            return HttpResponse(e.args[0]+"reaching here")
 #"""   
     
 def conversation_page(request):
