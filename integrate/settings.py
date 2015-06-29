@@ -38,7 +38,8 @@ INSTALLED_APPS = (
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'cbt2',
-    'conversationmanager'
+    'conversationmanager',
+    'exercise',
 )
 
 MIDDLEWARE_CLASSES = (

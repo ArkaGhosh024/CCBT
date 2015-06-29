@@ -39,8 +39,9 @@
 	<link rel="stylesheet" type="text/css" href="{% static 'conversationmanager/conversation_style.css' %}">
 </head>
 <body>
+	<div class="container conversation-history">
+	</div>
 	<form action="/conversation/" id="conversation-form">
-	
 		<div class="to-be-updated">
 			<div class="container">
 				<div class="row">
@@ -54,29 +55,18 @@
 				</div>
 
 				<div class="row button-row">
-					<div class="col-lg-3 col-md-3 col-sm-2 col-xs-2">
-						<img src="{% static 'conversationmanager/images/therapist_avatar/therapist_avatar.png' %}" class="img-responsive img-thumbnail hidden" id="user-avatar">
-					</div>
 					{% for choice in option_list %}
 					<div class="col-lg-9 col-md-9 col-sm-10 col-xs-10 button-div">
 						<!-- using pre and prefirmatted text does the resizing trick in the button text; set the color according to the color of the button -->
-						<button name="option" value={{choice.optionID}} class="btn btn-success choice-text hidden"><pre class="pre-text">{{choice.option_text}}</pre></button>
+						<button name="option" value={{choice.optionID}} class="btn btn-success choice-text pull-right hidden"><pre class="pre-text">{{choice.option_text}}</pre></button>
 					</div>
 					{% endfor %}
+					<div class="col-lg-3 col-md-3 col-sm-2 col-xs-2">
+						<img src="{% static 'conversationmanager/images/therapist_avatar/therapist_avatar.png' %}" class="img-responsive img-thumbnail hidden pull-right" id="user-avatar">
+					</div>
 				</div>
 			</div>
 		</div>
 	</form>
-	
-	<div class="container">
-		<div class="row">
-			<div class="col-lg-1 col-md-1 col-sm-2 col-xs-2">
-				
-			</div>
-			<div class="col-lg-11 col-md-11 col-sm-10 col-xs-10 conversation-history">
-				
-			</div>
-		</div>
-	</div>
 </body>
 </html>

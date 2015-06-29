@@ -47,5 +47,10 @@ urlpatterns = [
     url(r'^admin_page/$','conversationmanager.views.admin'),
     url(r'^update/conversations/$','conversationmanager.views.update_conversation'),
     url(r'^edit/conversations/$','conversationmanager.views.edit_conversation'),
-    #url(r'^edit/conversations/done/$','conversationmanager.views.done_edit_conversation')
+    url(r'^edit/conversations/done/$','conversationmanager.views.apply_update'),
+    url(r'^exercise_page/$','exercise.views.show_exercise_list'),
+    url(r'exercise/$','exercise.views.show_exercise'),
+    url(r'exercise/conversation/$','exercise.views.conversation'),
+    url(r'add/exercises/$','exercise.views.exercise'),
+    url(r'add/exercises/done/$','exercise.views.add_exercise')
 ]
