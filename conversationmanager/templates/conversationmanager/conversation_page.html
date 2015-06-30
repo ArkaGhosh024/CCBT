@@ -7,7 +7,7 @@
 	<body>
 		<form action="/conversation/" method="post">{% csrf_token %}
 		{%  for conversation in conversations  %}
-		<input type="submit" name="conversation" value="{{conversation}}">
+		<input type="submit" name="conversationID" value="{{conversation}}">
 		{% endfor %}
 		</form>
 	</body>

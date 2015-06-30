@@ -70,7 +70,7 @@ $(document).ready(function(){
 						console.log(parseInt($("a[name=\"option\"]").attr('href')));
 					}else{
 						console.log("conversation ended");
-						$(".button-row").replaceWith("<button class=\"btn btn-success pull-right\" id=\"next-btn\">Finish!</button>");
+						$(".button-row").replaceWith("<button class=\"btn btn-success pull-right\" id=\"finish-btn\">Finish!</button>");
 					}
 					
 				},
@@ -78,13 +78,35 @@ $(document).ready(function(){
 				error: function(xhr,errmsg,err){
 					alert(xhr.status + ": " + xhr.responseText);
 				}
-		});
+			});
 	});
 	
-	$(document).on('click', '#next-btn', function (ev) {
+	$(document).on('click', '#finish-btn', function (ev) {
 		ev.preventDefault();
 		console.log(saveConversationHsitory);
 		confirm("show next conversation");
+		var url = "/history/"
+		var conversaionID = $("input[name=\"conversationID\"]").val();
+		$.ajax({
+				type: "POST",
+				url: url, //get the url here
+				data: {
+					//csrftoken: csrftoken, 
+					hsitory: saveConversationHsitory, 
+					conversationID: conversationID,
+				},
+				beforeSend: function(xhr){
+					console.log("reaching here");
+					xhr.setRequestHeader('X-CSRFToken', $.cookie('csrftoken'));
+				},
+				success:function(data){
+					console.log("conversation history sent to backend");
+				},
+				
+				error: function(xhr,errmsg,err){
+					alert(xhr.status + ": " + xhr.responseText);
+				}
+			});
 	});
 });
 

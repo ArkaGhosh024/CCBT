@@ -57,15 +57,15 @@ def carry_out_conversation(request):
                     option_list.append(opt.option)
                 models.Userconversation.objects.create(user=user,conversation=qset[0].current_dialog,option_selected=qset[0].option,conversation_time=datetime.now(),conversationID=request.session['conversationID'])
                 
-                return render(request,'conversationmanager/conversation.html',{'option_list': option_list,'dialog':dialog})
+                return render(request,'conversationmanager/conversation.html',{'option_list': option_list,'dialog':dialog, 'conversationID':request.session['conversationID']})
             except(KeyError):
                 return HttpResponse('keyerror in carrying it out')
     
     else:
         try:
-            fullconversationset=models.Conversations.objects.filter(conversationID=request.POST['conversation']).order_by('dialog')
+            fullconversationset=models.Conversations.objects.filter(conversationID=request.POST['conversationID']).order_by('dialog')
             optionset=models.Conversationoptiongraph.objects.filter(current_dialog= fullconversationset[0])
-            request.session['conversationID']=request.POST['conversation']
+            request.session['conversationID']=request.POST['conversationID']
             option_list=[]
             for opt in optionset:
                 option_list.append(opt.option)

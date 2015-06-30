@@ -20,8 +20,9 @@ def show_exercise_list(request):
 
 def show_exercise(request):
     conversationID=request.POST.get('conversationid')
+    module_number=request.POST.get('module_number','1')
     conversation=models.ExerciseConversation.objects.get(conversationID=conversationID)
-    return render(request,'exercise/conversation.html',{'conversation':conversation})
+    return render(request,'exercise/exercise_conversation.html',{'conversation':conversation, 'module_number':module_number})
 
 #----------------------------------------------------------------------
 def conversation(request):
@@ -38,9 +39,9 @@ def conversation(request):
 
     #return HttpResponse(next_conversation.technique_conversation.conversation_text)
     if correct_technique == technique:
-        message=technique+" Great that worked. You helped the patient identify his/her NAT. see if there is any other technique as well "
+        message=technique+" Great that worked. You helped the patient. see if there is any other technique as well "
     else:
-        message="it looks like "+technique+" did not quite help the patient Identify the NAT. Go back and try a different technique. "
+        message="it looks like "+technique+" did not quite help the patient. Go back and try a different technique. "
     return render(request,'exercise/done.html',{'conversation':conversation, 'next_conversation':next_conversation.technique_conversation,'message':message})
 
 @user_passes_test(lambda u: u.is_superuser)
