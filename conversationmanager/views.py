@@ -146,3 +146,30 @@ def edit_conversation(request):
   #   while (not request.POST.get('row[%d][0]' %i, None) == None):
 
 
+@user_passes_test(lambda u: u.is_superuser)
+#----------------------------------------------------------------------
+def apply_update(request):
+    i=1
+    conversationid=int(request.POST.get('conversationid'))
+    conversations=models.Conversations.objects.filter(conversationID=conversationid).delete()
+    i=1
+    while (not request.POST.get('row[%d][0]' %i, None) == None):
+        last_dialog_ID=models.Conversations.objects.all().aggregate(Max('dialog'))['dialog__max']
+        last_option_ID=models.Options.objects.all().aggregate(Max('optionID'))['optionID__max']
+        try:
+            current_dialog=models.Conversations.objects.get(Q(conversationID=int(request.POST.get('conversationid'))),Q(dialog_text=request.POST.get('row[%d][0]' %i)))
+        except:
+            current_dialog=models.Conversations.objects.create(dialog=last_dialog_ID+1,conversationID=int(request.POST.get('conversationid')),dialog_text=request.POST.get('row[%d][0]' %i))
+            last_dialog_ID=models.Conversations.objects.latest("dialog").dialog
+        try:
+            next_dialog=models.Conversations.objects.get(Q(conversationID=int(request.POST.get('conversationid'))),Q(dialog_text=request.POST.get('row[%d][2]' %i)))
+        except:
+            next_dialog=models.Conversations.objects.create(conversationID=int(request.POST.get('conversationid')),dialog=last_dialog_ID+1,dialog_text=request.POST.get('row[%d][2]' %i))
+            last_dialog_ID=models.Conversations.objects.latest("dialog").dialog
+        try:
+            option=models.Options.objects.get(Q(option_text=request.POST.get('row[%d][1]' %i)))
+        except models.Options.DoesNotExist:
+            option=models.Options.objects.create(optionID=last_option_ID+1 ,option_text=request.POST.get('row[%d][1]' %i))
+        models.Conversationoptiongraph.objects.get_or_create(current_dialog=current_dialog,option=option,next_dialog=next_dialog)
+        i=i+1
+    return edit_conversation(request)

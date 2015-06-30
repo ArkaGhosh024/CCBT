@@ -5,18 +5,39 @@ $(document).ready(function(){
 	$hidden_input = $("input[name=\"dialog\"]");
 	$button_div = $(".button-div");
 	$button_row = $(".button-row");
+	var backgroundColor = "white";
+	var saveConversationHsitory = "";
 	
 	$(document).on('click', '.choice-text', function (ev) {
 	    ev.preventDefault();
 		//console.log("reaching here");
-		event.preventDefault();
+		//event.preventDefault();
 		//appending option to conversation history
-		//$conversation_history.append("<pre class=\"pull-left\" style=\"color:red\"><br>"+$(".bg-danger").text()+"<br></pre>");
-		conversationHistoryRow("dialog", $(".bg-danger").text());
-		//$conversation_history.append("<pre class=\"pull-right\" style=\"color:blue\"><br>"+$(this).text()+"<br></pre>");
-		conversationHistoryRow("option", $(this).text());
-		//$(".conversation-history-dialog").append("<p class=\"pull-left\" style=\"color:red\">"+$(".bg-danger").text()+"</p>");
-		//$(".conversation-history-option").append("<p class=\"pull-right\" style=\"color:blue\">"+$(this).text()+"</p>");
+
+		var dialogHistoryText = $(".bg-danger").text();
+		saveConversationHsitory+=">DP:"+dialogHistoryText+";\n";
+		var optionHistoryText =  $(this).text();
+		saveConversationHsitory+=">U:"+optionHistoryText+";\n";
+		
+
+		var startMarker = "!WRONG_CONVERSATION_START!";
+		var endMarker = "!CORRECT_THREAD!";
+
+		//modify this code to make the background of that part of conversation turn red where it has gone wrong
+		if(optionHistoryText.includes(startMarker)){
+			backgroundColor = "red";
+			optionHistoryText = optionHistoryText.substring(0, optionHistoryText.indexOf(startMarker));
+			console.log(optionHistoryText);
+		}
+		if(optionHistoryText.includes(endMarker)){
+			backgroundColor = "white";
+			optionHistoryText = optionHistoryText.substring(0, optionHistoryText.indexOf(endMarker));
+			console.log(optionHistoryText);
+		}
+
+		conversationHistoryRow("dialog", dialogHistoryText, backgroundColor);
+		conversationHistoryRow("option", optionHistoryText, backgroundColor);
+		
 		var $form = $("#conversation-form");
 			option = parseInt($(this).attr('href'));
 			dialog = $form.find("input[name=\"dialog\"]").val(),
@@ -44,7 +65,13 @@ $(document).ready(function(){
 					*/
 					allEffects();
 					//setting focus on button once the history becomes long enough and the user has to scroll to get to the main dialog and option
-					$('#user-avatar').focus();
+					$('.choice-text').focus();
+					if(parseInt($("a[name=\"option\"]").attr('href'))){
+						console.log(parseInt($("a[name=\"option\"]").attr('href')));
+					}else{
+						console.log("conversation ended");
+						$(".button-row").replaceWith("<button class=\"btn btn-success pull-right\" id=\"next-btn\">Finish!</button>");
+					}
 					
 				},
 				
@@ -52,6 +79,12 @@ $(document).ready(function(){
 					alert(xhr.status + ": " + xhr.responseText);
 				}
 		});
+	});
+	
+	$(document).on('click', '#next-btn', function (ev) {
+		ev.preventDefault();
+		console.log(saveConversationHsitory);
+		confirm("show next conversation");
 	});
 });
 
@@ -82,7 +115,7 @@ var allEffects = function(){
 /*
 see how to set images dynamically
 */
-var conversationHistoryRow = function(type, text){
+var conversationHistoryRow = function(type, text, backgroundColor){
 	if(type === "dialog"){
 		//$conversation_history.append("<p class=\"pull-left\" style=\"color:red\"><br>"+text+"<br></p>");
 		$conversation_history.append("<div class=\"row\">\
@@ -90,13 +123,13 @@ var conversationHistoryRow = function(type, text){
 				<img src=\"/static/conversationmanager/images/dummypatient_avatar/dummypatient_avatar.jpg\" style=\"width:50px;height:50px\" class=\"img-thumbnail img-responsive pull-left dummypatient-thumbnail-img\">\
 			</div>\
 			<div class=\"col-lg-10 col-md-10 col-sm-10 col-xs-10\">\
-				<p class=\"pull-left bubble\" style=\"color:red\"><br>"+text+"<br></p>\
+				<p class=\"pull-left bubble\" style=\"color:black;background-color:"+backgroundColor+";\"><br>"+text+"<br></p>\
 			</div>\
 		</div>");
 	}else if(type === "option"){
 		$conversation_history.append("<div class=\"row\">\
 			<div class=\"col-lg-11 col-md-11 col-sm-10 col-xs-10\">\
-				<p class=\"pull-right bubble\" style=\"color:blue\"><br>"+text+"<br></p>\
+				<p class=\"pull-right bubble\" style=\"color:blue;background-color:"+backgroundColor+";\"><br>"+text+"<br></p>\
 			</div>\
 			<div class=\"col-lg-1 col-md-1 col-sm-2 col-xs-2\">\
 				<img src=\"/static/conversationmanager/images/therapist_avatar/therapist_avatar.png\" style=\"width:50px;height:50px\" class=\"img-thumbnail img-responsive pull-right\">\
@@ -104,5 +137,3 @@ var conversationHistoryRow = function(type, text){
 		</div>");
 	}
 }
-
-//src=\"images/dummypatient_avatar/dummypatient_avatar.jpg\"
