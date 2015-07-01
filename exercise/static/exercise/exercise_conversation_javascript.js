@@ -4,6 +4,10 @@ $(document).ready(function(){
 	$module_specific_message = $(".module-specific-message");
 	//console.log($module_specific_message.text());
 	setMessage(moduleId);
+	var availableTechniques = [
+		"suggest an opposite thought",
+		"visualizing the situation",
+	];
 
 	$(document).on('click', 'input[name=\"submit-button\"]', function (ev) {
 		ev.preventDefault();
@@ -31,7 +35,16 @@ $(document).ready(function(){
 				if(!data){
 					alert("you are dog man");
 				}else{
-					alert(data);
+					//alert(data);
+					$(".to-be-replaced").replaceWith("<div class=\"to-be-replaced\">"+$(data).find(".to-be-replaced").html()+"</div>");
+					//console.log($(data).text().includes("Great that worked"));
+					if($(data).text().includes("Great that worked")){
+						console.log($(data).find("#result-conversation").text());
+						$(".result").addClass("bg-success");
+					}else{
+						console.log("incorrect");
+						$(".result").addClass("bg-danger");
+					}
 				}
 			},
 			
@@ -40,6 +53,17 @@ $(document).ready(function(){
 			}
 		});
 	});
+	
+	//autocomplete textbox; currently suggests only on exact match
+	$("input[name=\"technique\"]").autocomplete({
+		source: availableTechniques
+	});
+	/*
+	$("input[name=\"technique\"]").on("input", function(e){
+		//alert("changed");
+		//console.log($("input[name=\"technique\"]").val());
+		var keywords = $("input[name=\"technique\"]").val().split(" ");
+	});*/
 });
 
 var setMessage = function(moduleId){
