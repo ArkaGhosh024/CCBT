@@ -34,7 +34,7 @@ def conversation(request):
         next_conversation=models.ConversationToConversation.objects.get(base_conversation=conversation,technique=technique)
     except models.ConversationToConversation.DoesNotExist:
         message="no such technique"
-        return  render(request,'exercise/conversation.html',{'conversation':conversation,'message':message})
+        return  render(request,'exercise/exercise_conversation.html',{'conversation':conversation,'message':message})
     
 
     #return HttpResponse(next_conversation.technique_conversation.conversation_text)
@@ -42,7 +42,8 @@ def conversation(request):
         message=technique+" Great that worked. You helped the patient. see if there is any other technique as well "
     else:
         message="it looks like "+technique+" did not quite help the patient. Go back and try a different technique. "
-    return render(request,'exercise/done.html',{'conversation':conversation, 'next_conversation':next_conversation.technique_conversation,'message':message})
+    #return HttpResponse(next_conversation.technique_conversation.conversation_text)
+    return render(request,'exercise/exercise_conversation.html',{'conversation':conversation, 'next_conversation':next_conversation.technique_conversation,'message':message})
 
 @user_passes_test(lambda u: u.is_superuser)
 #----------------------------------------------------------------------

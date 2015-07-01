@@ -70,7 +70,7 @@ def carry_out_conversation(request):
             for opt in optionset:
                 option_list.append(opt.option)
             #models.Userconversation.objects.create(user=user,conversation=fullconversationset[0],option_selected=qset[0].option,conversation_time=datetime.now())
-            return render(request,'conversationmanager/conversation.html',{'option_list': option_list,'dialog':fullconversationset[0]})
+            return render(request,'conversationmanager/conversation.html',{'option_list': option_list,'dialog':fullconversationset[0], 'conversationID':request.session['conversationID']})
         except KeyError as e:
             return HttpResponse(e.args[0]+"reaching here")
 #"""   

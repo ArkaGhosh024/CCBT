@@ -3,32 +3,6 @@ var index=0;
 var noOfQuestions = 9;
 
 $(document).ready(function(){
-	//$carousel_inner = $(".carousel-inner");
-	/*
-	$("#inner-carousel").append("<div class=\"item carousel1\">\
-      <img src=\"images/therapist_professional.png\">\
-      <div class=\"carousel-caption\">\
-        <p>Have you found little pleasure or interest in doing things?</p>\
-      </div>\
-    </div>");
-    $("#inner-carousel").append("<div class=\"item\">\
-      <img src=\"images/therapist_professional.png\">\
-      <div class=\"carousel-caption\">\
-        <p>Have you found yourself feeling down, depressed or hopeless?</p>\
-      </div>\
-    </div>");
-    //confirm("it is working");
-    $(".left").click(function(){
-    	confirm("left button clicked");
-    });
-    $(".right").click(function(){
-    	confirm("left button clicked");
-    });
-    $(document).click(function(){
-    	$(".carousel1").addClass("active");
-    });
-*/
-//var count = 0;
 
 //getting the index of the current question to set the score for that index
 $("#carousel-example-generic").on('slid.bs.carousel', function(){
@@ -49,7 +23,9 @@ $(".btn-depression-severity-option").click(function(){
   //checking if one option is selected for every question
   if(noOfUndefined(score)){
     //confirm(arraySum(score)+stringArray(score));
-    $("#score-string").val(stringArray(score));
+    console.log("string array"+stringArray(score));
+    //$("input[name=\"score\"]").val(stringArray(score));
+    $("input[name=\"score\"]").replaceWith("<input name=\"score\" value="+stringArray(score)+" class=\"hidden\" id=\"score-string\"/>");
     $("#submit-button").removeClass("disabled");
     // proceed to next page
   }else{

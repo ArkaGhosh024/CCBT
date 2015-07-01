@@ -6,7 +6,7 @@ $(document).ready(function(){
 	$button_div = $(".button-div");
 	$button_row = $(".button-row");
 	var backgroundColor = "white";
-	var saveConversationHsitory = "";
+	var saveConversationHistory = "";
 	
 	$(document).on('click', '.choice-text', function (ev) {
 	    ev.preventDefault();
@@ -15,9 +15,9 @@ $(document).ready(function(){
 		//appending option to conversation history
 
 		var dialogHistoryText = $(".bg-danger").text();
-		saveConversationHsitory+=">DP:"+dialogHistoryText+";\n";
+		saveConversationHistory+=">DP:"+dialogHistoryText+";\n";
 		var optionHistoryText =  $(this).text();
-		saveConversationHsitory+=">U:"+optionHistoryText+";\n";
+		saveConversationHistory+=">U:"+optionHistoryText+";\n";
 		
 
 		var startMarker = "!WRONG_CONVERSATION_START!";
@@ -83,16 +83,16 @@ $(document).ready(function(){
 	
 	$(document).on('click', '#finish-btn', function (ev) {
 		ev.preventDefault();
-		console.log(saveConversationHsitory);
+		console.log(saveConversationHistory);
 		confirm("show next conversation");
 		var url = "/history/"
-		var conversaionID = $("input[name=\"conversationID\"]").val();
+		var conversationID = $("input[name=\"conversationID\"]").val();
 		$.ajax({
 				type: "POST",
 				url: url, //get the url here
 				data: {
 					//csrftoken: csrftoken, 
-					hsitory: saveConversationHsitory, 
+					history: saveConversationHistory, 
 					conversationID: conversationID,
 				},
 				beforeSend: function(xhr){

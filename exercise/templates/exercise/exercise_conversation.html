@@ -58,11 +58,17 @@
 		</div>
 		<div class="row">
 			<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-				<form action="/exercise/conversation/" method="post"> {% csrf_token %}
+				<form action="/exercise/conversation/" method="post" id="exercise-form"> {% csrf_token %}
 					<input type="hidden" name="conversationid" value="{{conversation.conversationID}}">
 					<label><strong>Technique:-</strong> <input type="text" name="technique" required></label>
-					<input type="submit" value="Submit">
+					<input type="submit" value="Submit" name="submit-button">
 				</form>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 result">
+			<p id="result-conversation">{{next_conversation.conversation_text| linebreaks }}</p>
+			<p id="result-message"><i><strong>{{message}}</strong></i></p>
 			</div>
 		</div>
 	</div>

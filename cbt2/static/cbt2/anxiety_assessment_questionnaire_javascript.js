@@ -49,7 +49,8 @@ $(".btn-anxiety-severity-option").click(function(){
   //checking if one option is selected for every question
   if(noOfUndefined(score)){
     //confirm(arraySum(score));
-    $("#score-string").val(stringArray(score));
+    //$("#score-string").val(stringArray(score));
+    $("input[name=\"score\"]").replaceWith("<input name=\"score\" value="+stringArray(score)+" class=\"hidden\" id=\"score-string\"/>");
     $("#submit-button").removeClass("disabled");
     // proceed to next page
   }else{

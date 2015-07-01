@@ -6,9 +6,9 @@
 	<body>
 		<form action="conversation/" method="post"> {% csrf_token %}
 		<input type="hidden" name="conversationid" value="{{conversation.conversationID}}">
-			<strong>{{conversation.conversation_text| linebreaks }}</strong>
-			<strong>{{next_conversation.conversation_text| linebreaks }}</strong>
-			<pre><i><strong>{{message}}</strong></i></pre>
+			<p id="base-conversation">{{conversation.conversation_text| linebreaks }}</p>
+			<p id="result-conversation">{{next_conversation.conversation_text| linebreaks }}</p>
+			<p id="result-message"><i><strong>{{message}}</strong></i></p>
 			<input type=button value="try again" onClick="javascript:history.go(-1);">
 		</form>
 	</body>
