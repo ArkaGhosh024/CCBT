@@ -38,8 +38,8 @@ def carry_out_conversation(request):
     except:
         return HttpResponseRedirect('/accounts/login/')
     """
-    username=request.session['username']
-    user=User.objects.get(username=username)
+    #username=request.session['username']
+    user=User.objects.get(username='ghosh')
     if request.method == 'GET':
         return HttpResponse("get")  
     if not request.POST.get('dialog',None) == None:

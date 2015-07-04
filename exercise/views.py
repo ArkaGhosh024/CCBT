@@ -14,6 +14,9 @@ from . import models
 from django.contrib.auth.decorators import user_passes_test
 from django.db.models import Q , Max
 
+#import pdb; 
+#pdb.set_trace()
+
 def show_exercise_list(request):
     exercise_list=models.ExerciseConversation.objects.filter(conversation_type='Base')
     return render(request,'exercise/exercise_page.html',{'exercise_list':exercise_list})
@@ -29,7 +32,7 @@ def conversation(request):
     conversation=models.ExerciseConversation.objects.get(conversationID=request.POST.get('conversationid'))
     technique=request.POST.get('technique')
     correct_technique=models.ConversationToModule.objects.get(conversation=conversation).correct_technique
-    message=""
+    message="jhfgjhgfh"
     try:
         next_conversation=models.ConversationToConversation.objects.get(base_conversation=conversation,technique=technique)
     except models.ConversationToConversation.DoesNotExist:

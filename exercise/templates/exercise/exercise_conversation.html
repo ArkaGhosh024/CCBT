@@ -36,10 +36,11 @@
 		</div>
 		<div class="row technique-input-row">
 			<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 ">
-				<form action="/exercise/conversation/" method="post" id="exercise-form" class="form-inline"> {% csrf_token %}
+				<form action="/exercise/conversation/" method="post" id="exercise-form" class="form-horizontal"> {% csrf_token %}
 					<input type="hidden" name="conversationid" value="{{conversation.conversationID}}">
-					<input type="text" name="technique" class="form-control ui-widget" placeholder="Input technique name here" required>
-					<input type="submit" value="Submit" name="submit-button">
+					<!-- <label for="technique-name">Technique</label> -->
+					<input type="text" name="technique" class="form-control ui-widget" placeholder="Enter the technique name" required>
+					<button type="submit" value="Submit" name="submit-button" class="btn btn-primary">Submit</button>
 				</form>
 			</div>
 		</div>

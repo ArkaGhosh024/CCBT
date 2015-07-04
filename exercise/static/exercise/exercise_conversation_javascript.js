@@ -9,10 +9,11 @@ $(document).ready(function(){
 		"visualizing the situation",
 	];
 
-	$(document).on('click', 'input[name=\"submit-button\"]', function (ev) {
+	$(document).on('click', 'button[name=\"submit-button\"]', function (ev) {
 		ev.preventDefault();
 		var $form = $("#exercise-form");
 		var url = $form.attr("action");
+		console.log(url);
 		var conversationid = $form.find("input[name=\"conversationid\"]").val();
 		console.log(conversationid);
 		var technique = $form.find("input[name=\"technique\"]").val();
@@ -36,6 +37,7 @@ $(document).ready(function(){
 					alert("you are dog man");
 				}else{
 					//alert(data);
+					console.log($(data).find("#result-conversation").text());
 					$(".to-be-replaced").replaceWith("<div class=\"to-be-replaced\">"+$(data).find(".to-be-replaced").html()+"</div>");
 					//console.log($(data).text().includes("Great that worked"));
 					if($(data).text().includes("Great that worked")){
