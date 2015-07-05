@@ -57,8 +57,6 @@ class Conversationoptiongraph(models.Model):
     
     def __str__(self):
         return str(self.current_dialog.dialog)+"-"+str(self. option.optionID)+"-"+str(self.next_dialog.dialog)
-    class meta:
+    class Meta:
         ordering=['current_dialog']
         
-
-
